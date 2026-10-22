@@ -1,0 +1,137 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --line: #262b36;
+  --text: #e8eaf0;
+  --muted: #8a92a6;
+  --accent: #e5484d;
+  --ok: #2bb673;
+  --ready: #3d7eff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 "Segoe UI", Roboto, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+h1 { font-size: 20px; margin: 0; }
+h1 span { font-size: 13px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+h2 { font-size: 17px; margin: 0 0 10px; font-weight: 600; }
+
+#health { font-size: 13px; color: var(--muted); }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #555; margin-right: 6px; }
+.dot.ok { background: var(--ok); }
+.dot.bad { background: var(--accent); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 40px; display: grid; gap: 18px; }
+
+.source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+#urlForm { display: flex; flex: 1 1 420px; gap: 8px; }
+#url {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+}
+
+button, .file span {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.file input { display: none; }
+.file span { background: #2c3240; display: inline-block; }
+.or { color: var(--muted); font-size: 13px; }
+
+#upload { flex-basis: 100%; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+#uploadBar { height: 100%; width: 0; background: var(--ready); transition: width 0.2s; }
+
+#notice {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #2a2412;
+  color: #ffd166;
+  font-size: 14px;
+}
+
+#stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#stage video, #stage iframe, #stage > div:not(.youcev-overlay) { width: 100%; height: 100%; display: block; border: 0; }
+
+#timeline {
+  position: relative;
+  height: 8px;
+  margin-top: 10px;
+  background: var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#timeline .r { position: absolute; top: 0; bottom: 0; background: var(--ready); }
+#playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; z-index: 1; }
+#state { font-size: 13px; color: var(--muted); margin-top: 6px; min-height: 20px; }
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+}
+
+.settings label { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.settings select {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 8px;
+}
+
+a { color: var(--ready); }
+
+/* Web oynatıcıda altyazı katmanı tıklamayı engellemesin ama YouTube kontrollerinin üstünde kalsın */
+#stage .youcev-sub { bottom: 15%; }

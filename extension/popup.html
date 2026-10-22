@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <title>You-Cev</title>
+  <style>
+    body { width: 290px; margin: 0; padding: 14px 16px; font: 13px "Segoe UI", Roboto, sans-serif; color: #1d1d1f; background: #fff; }
+    h1 { font-size: 16px; margin: 0 0 10px; display: flex; align-items: center; justify-content: space-between; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #bbb; display: inline-block; margin-right: 6px; }
+    .dot.ok { background: #2bb673; } .dot.bad { background: #e5484d; }
+    #server { font-size: 12px; color: #555; margin-bottom: 12px; }
+    label { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 9px 0; }
+    select, input[type=range] { width: 150px; }
+    .val { width: 34px; text-align: right; color: #666; }
+    hr { border: 0; border-top: 1px solid #eee; margin: 12px 0; }
+    small { color: #777; }
+    .warn { margin: 0 0 8px; padding: 6px 8px; background: #fff4e5; border-radius: 6px; font-size: 12px; color: #8a4b00; }
+    .note { margin: 10px 0 0; padding: 8px 10px; background: #f3f6ff; border-radius: 6px; font-size: 12px; color: #334; }
+  </style>
+</head>
+<body>
+  <h1>You-Cev <input type="checkbox" id="enabled" title="Aç / kapat"></h1>
+  <div id="server"><span class="dot" id="dot"></span><span id="serverText">Sunucu kontrol ediliyor…</span></div>
+
+  <label>Ses
+    <select id="voice"></select>
+  </label>
+  <p class="warn" id="voiceWarn" hidden></p>
+  <label>Çeviri
+    <select id="engine">
+      <option value="auto">Otomatik</option>
+      <option value="ollama">Ollama (yerel LLM)</option>
+      <option value="google">Google</option>
+      <option value="local">Yerel (internetsiz)</option>
+    </select>
+  </label>
+  <hr>
+  <label>Orijinal ses <input type="range" id="duck" min="0" max="1" step="0.05"><span class="val" id="duckVal"></span></label>
+  <label>Türkçe ses <input type="range" id="voiceVolume" min="0.2" max="1" step="0.05"><span class="val" id="voiceVolumeVal"></span></label>
+  <label>Altyazı boyutu <input type="range" id="subtitleSize" min="16" max="44" step="1"><span class="val" id="subtitleSizeVal"></span></label>
+  <label>İngilizce satırı göster <input type="checkbox" id="showEnglish"></label>
+  <small>Orijinal ses: Türkçe konuşma sırasında videonun ses seviyesi.</small>
+  <p class="note">Bu pencerenin açık kalmasına gerek yok; çeviri YouTube sekmesinde kendiliğinden çalışır. Simgedeki rozet hazırlık durumunu gösterir (✓ = tamamı hazır).</p>
+  <script src="popup.js"></script>
+</body>
+</html>

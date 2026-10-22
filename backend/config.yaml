@@ -1,0 +1,37 @@
+# You-Cev ayarları. Popup / web arayüzünden değiştirilen ayarlar cache/settings.json'a yazılır
+# ve bu dosyanın üstüne uygulanır.
+
+server:
+  host: 127.0.0.1
+  port: 8765
+
+asr:
+  model: large-v3-turbo        # GPU modeli
+  device: cuda                 # cuda | cpu
+  compute_type: int8_float16
+  cpu_model: small.en          # CUDA çalışmazsa kullanılacak model
+  language: en                 # null = otomatik algıla
+  beam_size: 5
+
+pipeline:
+  first_chunk_seconds: 20      # ilk parça kısa: ilk ses hızlı gelsin
+  chunk_seconds: 60
+  use_manual_subtitles: true   # videoda elle yüklenmiş İngilizce altyazı varsa ASR yerine onu kullan
+
+translate:
+  engine: auto                 # auto (Ollama varsa Ollama, yoksa Google) | ollama | google | local
+  ollama_url: http://127.0.0.1:11434
+  ollama_model: gemma3:4b-it-qat
+  ollama_think: null           # düşünme modu olan modellerde (qwen3 vb.) false yapın
+  context_sentences: 3
+
+tts:
+  engine: auto                 # auto (Microsoft sesleri, olmazsa yerel Piper) | local (yalnızca Piper)
+  voice: tr-TR-AhmetNeural     # tr-TR-AhmetNeural | tr-TR-EmelNeural
+  base_rate: 0                 # yüzde, ör. 5 = %5 hızlı
+  max_rate: 30                 # süreye sığdırmak için çıkılabilecek en yüksek hız
+  concurrency: 4               # 4'ten fazlasını Microsoft reddediyor
+
+# Özel isim / terim sözlüğü (yalnızca Ollama ile kullanılır), ör:
+#   machine learning: makine öğrenmesi
+glossary: {}

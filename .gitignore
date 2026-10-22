@@ -1,0 +1,5 @@
+# Büyük / yeniden üretilebilir şeyler kayda girmez
+.venv/
+cache/
+__pycache__/
+*.pyc

@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pyyaml
+httpx
+numpy
+faster-whisper
+nvidia-cublas-cu12
+nvidia-cudnn-cu12==9.*
+yt-dlp[default]
+edge-tts
+piper-tts

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>You-Cev</title>
+  <link rel="stylesheet" href="/web/style.css">
+  <link rel="stylesheet" href="/overlay.css">
+</head>
+<body>
+  <header>
+    <h1>You-Cev <span>YouTube → Türkçe seslendirme</span></h1>
+    <div id="health"><span class="dot"></span><span id="healthText">Sunucu kontrol ediliyor…</span></div>
+  </header>
+
+  <main>
+    <section class="source">
+      <form id="urlForm">
+        <input id="url" type="text" placeholder="YouTube linkini yapıştırın" autocomplete="off" required>
+        <button type="submit">Çevir</button>
+      </form>
+      <div class="or">veya</div>
+      <label class="file">
+        <input id="file" type="file" accept="video/*,audio/*">
+        <span>Video dosyası seç</span>
+      </label>
+      <div id="upload" hidden><div id="uploadBar"></div></div>
+    </section>
+
+    <section id="stageWrap" hidden>
+      <h2 id="title"></h2>
+      <div id="notice" hidden></div>
+      <div id="stage"></div>
+      <div id="timeline" title="Çevirisi hazır olan bölümler"><div id="playhead"></div></div>
+      <div id="state"></div>
+    </section>
+
+    <section class="settings">
+      <label>Ses <select id="voice"></select></label>
+      <label>Çeviri
+        <select id="engine">
+          <option value="auto">Otomatik</option>
+          <option value="ollama">Ollama (yerel LLM)</option>
+          <option value="google">Google</option>
+          <option value="local">Yerel (internetsiz)</option>
+        </select>
+      </label>
+      <label>Orijinal ses <input id="duck" type="range" min="0" max="1" step="0.05"></label>
+      <label>Türkçe ses <input id="voiceVolume" type="range" min="0.2" max="1" step="0.05"></label>
+      <label>Altyazı boyutu <input id="subtitleSize" type="range" min="16" max="44" step="1"></label>
+      <label><input id="showEnglish" type="checkbox"> İngilizce satırı göster</label>
+      <a id="srt" href="#" hidden>Türkçe altyazıyı indir (.srt)</a>
+    </section>
+  </main>
+
+  <script src="/sync-player.js"></script>
+  <script src="/web/app.js"></script>
+</body>
+</html>
