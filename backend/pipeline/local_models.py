@@ -148,12 +148,18 @@ def _load_nllb():
         import ctranslate2
         from tokenizers import Tokenizer
 
+        from pipeline import gpu
+
+        gpu.add_nvidia_dlls()
         model_dir, _ = _local_files(NLLB_REPO, NLLB_FILES, "nllb")
         tokenizer = Tokenizer.from_file(str(model_dir / "tokenizer.json"))
         try:
             device = "cuda" if cfg["asr"]["device"] != "cpu" and ctranslate2.get_cuda_device_count() else "cpu"
             translator = ctranslate2.Translator(str(model_dir), device=device,
                                                 compute_type="int8_float16" if device == "cuda" else "int8")
+            # Isınma: GPU kütüphanesi eksikse hata burada çıksın (çeviri sırasında değil)
+            translator.translate_batch([["eng_Latn", "▁Hello", "</s>"]], target_prefix=[["tur_Latn"]],
+                                       max_decoding_length=4)
         except Exception as e:
             log.warning("NLLB GPU'da açılamadı (%s), CPU kullanılıyor", e)
             device = "cpu"

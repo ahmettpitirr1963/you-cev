@@ -1,14 +1,11 @@
 """faster-whisper ile konuşma → kelime zaman damgalı metin."""
 import logging
-import os
-import sys
 import threading
-from pathlib import Path
 
 import numpy as np
 
 from config import cfg
-from pipeline import local_models
+from pipeline import gpu, local_models
 
 log = logging.getLogger("youcev.asr")
 
@@ -22,28 +19,13 @@ def status():
     return dict(_status)
 
 
-def _add_nvidia_dlls():
-    """pip ile kurulan nvidia-cublas / nvidia-cudnn DLL'lerini Windows'ta bulunur yapar."""
-    if sys.platform != "win32":
-        return
-    for base in map(Path, sys.path):
-        nv = base / "nvidia"
-        if not nv.is_dir():
-            continue
-        for sub in nv.iterdir():
-            dll_dir = sub / "bin"
-            if dll_dir.is_dir():
-                os.add_dll_directory(str(dll_dir))
-                os.environ["PATH"] = str(dll_dir) + os.pathsep + os.environ.get("PATH", "")
-
-
 def get_model():
     global _model
     with _load_lock:
         if _model is not None:
             return _model
         _status["state"] = "yükleniyor"
-        _add_nvidia_dlls()
+        gpu.add_nvidia_dlls()
         from faster_whisper import WhisperModel
 
         a = cfg["asr"]
